@@ -8,3 +8,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet'); 
 const https = require('https'); 
 const fs = require('fs'); 
+
+const app = express();
+
+const PORT = process.env.PORT || 3000;
