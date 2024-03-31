@@ -17,3 +17,10 @@ mongoose.connect('mongodb://localhost:27017/carInventory', {
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 });
+
+const UserSchema = new mongoose.Schema({
+    username: String, 
+    password: String, 
+    role: { type: String, enum: ['admin', 'client'], default: 'user' } 
+  });
+const User = mongoose.model('User', UserSchema);
