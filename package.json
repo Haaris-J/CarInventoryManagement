@@ -1,0 +1,26 @@
+{
+  "name": "carinventorymanagement",
+  "version": "1.0.0",
+  "description": "A comprehensive Car Dealership Management System using Node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haaris-J/CarInventoryManagement.git"
+  },
+  "keywords": [
+    "Team",
+    "1",
+    "CSD3103",
+    "Term",
+    "Project"
+  ],
+  "author": "muhammadhaarisj, dhruvil, saichand, sanjay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Haaris-J/CarInventoryManagement/issues"
+  },
+  "homepage": "https://github.com/Haaris-J/CarInventoryManagement#readme"
+}
