@@ -24,3 +24,18 @@ const UserSchema = new mongoose.Schema({
     role: { type: String, enum: ['admin', 'client'], default: 'user' } 
   });
 const User = mongoose.model('User', UserSchema);
+
+app.use(express.static('public')); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser()); 
+app.use(session({
+  secret: 'bingo', 
+  resave: true,
+  saveUninitialized: true, 
+  cookie: {
+    secure: true,
+    maxAge: 3600000,
+    httpOnly: true
+  }
+}));
