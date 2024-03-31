@@ -12,3 +12,8 @@ const fs = require('fs');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+mongoose.connect('mongodb://localhost:27017/carInventory', {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+});
