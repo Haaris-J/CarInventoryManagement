@@ -39,3 +39,5 @@ app.use(session({
     httpOnly: true
   }
 }));
+
+app.use(helmet());
