@@ -25,7 +25,9 @@ const UserSchema = new mongoose.Schema({
   });
 const User = mongoose.model('User', UserSchema);
 
-app.use(express.static('public')); 
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser()); 
@@ -43,7 +45,8 @@ app.use(session({
 app.use(helmet());
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    username = 'test';
+    res.render('index');
   });
 
 const httpsOptions = {

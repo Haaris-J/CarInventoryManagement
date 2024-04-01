@@ -22,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/Haaris-J/CarInventoryManagement/issues"
   },
-  "homepage": "https://github.com/Haaris-J/CarInventoryManagement#readme"
+  "homepage": "https://github.com/Haaris-J/CarInventoryManagement#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "fs": "^0.0.1-security",
+    "helmet": "^7.1.0",
+    "https": "^1.0.0",
+    "mongoose": "^8.2.4"
+  }
 }
