@@ -64,6 +64,17 @@ app.post('/login', query('username').notEmpty(), async (req, res) => {
     }
 });
 
+app.post('/register',query('username').notEmpty(), async (req, res) => {
+    const { username, password, role } = req.body; 
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10); 
+      await User.create({ username, password: hashedPassword, role }); 
+      res.send('User registered successfully!'); 
+    } catch (error) {
+      res.status(500).send('Registration failed!'); // Send error response
+    }
+  });
+
 const httpsOptions = {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('certificate.pem')
