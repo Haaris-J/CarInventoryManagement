@@ -64,16 +64,21 @@ app.post('/login', query('username').notEmpty(), async (req, res) => {
     }
 });
 
-app.post('/register',query('username').notEmpty(), async (req, res) => {
-    const { username, password, role } = req.body; 
+app.post('/register', query('username').notEmpty(), async (req, res) => {
+    const { username, password } = req.body;
+    role = 'user';
     try {
-      const hashedPassword = await bcrypt.hash(password, 10); 
-      await User.create({ username, password: hashedPassword, role }); 
-      res.send('User registered successfully!'); 
+        const user = await User.findOne({ username });
+        if (user) {
+            res.status(401).send('Username already exsist!');
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.create({ username, password: hashedPassword, role });
+        res.send('User registered successfully!');
     } catch (error) {
-      res.status(500).send('Registration failed!'); // Send error response
+        res.status(500).send('Registration failed!'); // Send error response
     }
-  });
+});
 
 const httpsOptions = {
     key: fs.readFileSync('key.pem'),
