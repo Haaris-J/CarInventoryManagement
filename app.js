@@ -49,6 +49,21 @@ app.get('/', (req, res) => {
     res.render('index');
   });
 
+app.post('/login', query('username').notEmpty(), async (req, res) => {
+    const { username, password } = req.body; 
+    try {
+        const user = await User.findOne({ username });
+        if (user && await bcrypt.compare(password, user.password)) { 
+            req.session.user = user; 
+            res.render('');
+        } else {
+            res.status(401).send('Invalid credentials!'); 
+        }
+    } catch (error) {
+        res.status(500).send('Login failed!'); // Send error response
+    }
+});
+
 const httpsOptions = {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('certificate.pem')
