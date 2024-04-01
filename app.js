@@ -80,6 +80,16 @@ app.post('/register', query('username').notEmpty(), async (req, res) => {
     }
 });
 
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            res.status(500).send('Logout failed!');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
 const httpsOptions = {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('certificate.pem')
