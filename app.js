@@ -45,3 +45,13 @@ app.use(helmet());
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
   });
+
+const httpsOptions = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('certificate.pem')
+};
+
+https.createServer(httpsOptions, app).listen(PORT, () => {
+    console.log(`Server is running on https://localhost:${PORT}`);
+});
+  
