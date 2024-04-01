@@ -41,3 +41,7 @@ app.use(session({
 }));
 
 app.use(helmet());
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+  });
