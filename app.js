@@ -21,7 +21,8 @@ mongoose.connect('mongodb://localhost:27017/carInventory', {
 
 const UserSchema = new mongoose.Schema({
     username: String, 
-    password: String, 
+    password: String,
+    email: String, 
     role: { type: String, enum: ['admin', 'client'], default: 'user' } 
   });
 const User = mongoose.model('User', UserSchema);
@@ -56,28 +57,43 @@ app.post('/login', query('username').notEmpty(), async (req, res) => {
         const user = await User.findOne({ username });
         if (user && await bcrypt.compare(password, user.password)) { 
             req.session.user = user; 
-            res.render('');
+            if(user.role === 'admin'){
+                res.render('manage');
+            } else {
+                res.render('inventory');
+            }
         } else {
             res.status(401).send('Invalid credentials!'); 
         }
     } catch (error) {
-        res.status(500).send('Login failed!'); // Send error response
+        res.status(427).send(`<h1 style="color:red;">Login failed!</h1><br><a href="http://localhost:${PORT}/">Return to website</a>`);
     }
 });
 
 app.post('/register', query('username').notEmpty(), async (req, res) => {
-    const { username, password } = req.body;
-    role = 'user';
+    const { username, password, email} = req.body;
+    let userExist = false;
     try {
-        const user = await User.findOne({ username });
-        if (user) {
-            res.status(401).send('Username already exsist!');
+        await data.findOne({
+            username: `${username}`,
+        })
+            .then((document) => {
+                if (document != null) {
+                    userExist = true;
+                }
+            });
+        console.log(userExist);
+        if (!userExist) {
+            const hashedPassword = await bcrypt.hash(password, 1);
+            await data.create({ username, password: hashedPassword, email });
+            res.sendFile(path.join(__dirname, 'public', 'login.html'));
+        } else {
+            res.status(427).send(`<h1 style="color:red;">User Name already exist!</h1><br><a href="http://localhost:${PORT}/">Return to website</a>`);
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await User.create({ username, password: hashedPassword, role });
-        res.send('User registered successfully!');
+
     } catch (error) {
-        res.status(500).send('Registration failed!'); // Send error response
+        console.log(error)
+        res.status(500).send(`<h1 style="color:red;">Registration failed!</h1><br><a href="http://localhost:${PORT}/">Return to website</a>`);
     }
 });
 
