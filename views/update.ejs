@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Car</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+
+<body>
+    <form action="<%= `https://localhost:${PORT}/update-car`%>" method="post">
+        <label for="c_brand">Brand:</label>
+        <select name="c_brand" id="c_brand">
+            <option value="Toyota" <%=(car.brand==="Toyota" ? "selected" : "" )%>>Toyota</option>
+            <option value="Honda" <%=(car.brand==="Honda" ? "selected" : "" )%>>Honda</option>
+            <option value="Kia" <%=(car.brand==="Kia" ? "selected" : "" )%>>Kia</option>
+            <option value="BMW" <%=(car.brand==="BMW" ? "selected" : "" )%>>BMW</option>
+            <option value="Mercedes" <%=(car.brand==="Mercedes" ? "selected" : "" )%>>Mercedes</option>
+            <option value="Audi" <%=(car.brand==="Audi" ? "selected" : "" )%>>Audi</option>
+        </select>
+        <br>
+        <label>Model:</label> <input type="text" name="c_model" id="c_model" value="<%=`${car.model}`%>"><br>
+        <label for="c_type">Type:</label>
+        <select name="c_type" id="c_type">
+            <option value="SUV" <%=(car.type==="SUV" ? "selected" : "" )%>>SUV</option>
+            <option value="Sedan" <%=(car.type==="Sedan" ? "selected" : "" )%>>Sedan</option>
+            <option value="HatchBack" <%=(car.type==="HatchBack" ? "selected" : "" )%>>HatchBack</option>
+        </select>
+        <br>
+        <label for="c_fuel">Fuel:</label>
+        <select name="c_fuel" id="c_fuel">
+            <option value="Gas" <%=(car.fuel==="Gas" ? "selected" : "" )%>>Gas</option>
+            <option value="Hybrid" <%=(car.fuel==="Hybrid" ? "selected" : "" )%>>Hybrid</option>
+            <option value="EV" <%=(car.fuel==="EV" ? "selected" : "" )%>>EV</option>
+        </select>
+        <br>
+        <label>Mileage:</label> <input type="text" name="c_mileage" id="c_mileage" value="<%=`${car.mileage}`%>"><br>
+        <label>Price:</label> <input type="text" name="c_price" id="c_price" value="<%=`${car.price}`%>"><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+
+</html>
