@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+</head>
+<body>
+    <form action="<%= `https://localhost:${PORT}/add-car`%>" method="post">
+        <label>Brand:</label>
+        <select name="c_brand" id="c_brand">
+            <option value="Toyota">Toyota</option>
+            <option value="Honda">Honda</option>
+            <option value="Kia">Kia</option>
+            <option value="BMW">BMW</option>
+            <option value="Mercedes">Mercedes</option>
+            <option value="Audi">Audi</option>
+        </select>
+        <br>
+        <label>Model:</label> <input type="text" name="c_model" id="c_model"><br>
+        <label>Type:</label>
+        <select name="c_type" id="c_type">
+            <option value="SUV">SUV</option>
+            <option value="Sedan">Sedan</option>
+            <option value="HatchBack">HatchBack</option>
+        </select>
+        <br>
+        <label>Fuel:</label>
+        <select name="c_fuel" id="c_fuel">
+            <option value="Gas">Gas</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="EV">EV</option>
+        </select>
+        <br>
+        <label>Mileage:</label> <input type="text" name="c_mileage" id="c_mileage"><br>
+        <label>Price:</label> <input type="text" name="c_price" id="c_price"><br>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
