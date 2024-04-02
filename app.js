@@ -214,7 +214,7 @@ app.post('/add-car', (req, res) => {
             })
             .catch((err) => {
                 console.error('Error adding car data:', err);
-                res.redirect(`https://localhost:${PORT}/get-cars`);
+                res.redirect(`https://localhost:${PORT}/manage-cars`);
             });
         res.redirect(`https://localhost:${PORT}/manage-cars`);
     } else {
@@ -223,11 +223,39 @@ app.post('/add-car', (req, res) => {
 });
 
 app.post('/edit-car/:id', (req, res) => {
-    data.find()
-        .then((cars) => {
-            console.log(cars);
-            res.render('manage', { 'cars': cars, PORT });
+    data.findOne({
+        _id: `${req.params.id}`
+    })
+        .then((car) => {
+            console.log(car);
+            res.render('update', { 'car': car, PORT });
         });
+});
+
+app.post('/update-car', (req, res) => {
+    const user = req.session.user;
+    if (user && user.username === 'admin') {
+        const { c_brand, c_model, c_type, c_fuel, c_mileage, c_price } = req.body;
+
+        data.updateOne({
+            brand: `${c_brand}`,
+            model: `${c_model}`,
+            type: `${c_type}`,
+            fuel: `${c_fuel}`,
+            mileage: `${c_mileage}`,
+            price: `${c_price}`
+        })
+            .then(() => {
+                console.log('car data updated successfully!');
+            })
+            .catch((err) => {
+                console.error('Error updating car data:', err);
+                res.redirect(`https://localhost:${PORT}/manage-cars`);
+            });
+        res.redirect(`https://localhost:${PORT}/manage-cars`);
+    } else {
+        res.status(500).send(`<h1 style="color:red;">UnAuthorized! Admin only access, contact admin</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
+    }
 });
 
 app.post('/delete-car/:id', (req, res) => {
