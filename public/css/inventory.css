@@ -1,0 +1,11 @@
+.car-tile {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    float: left;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}

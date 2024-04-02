@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Inventory</title>
+    <link rel="stylesheet" type="text/css" href="/css/inventory.css">
 </head>
+
 <body>
-    
+    <div class="search-bar">
+        <form action="<%= `https://localhost:${PORT}/search-cars`%>" method="get">
+            <label for="filter">Choose filter:</label>
+            <select name="filter" id="filter">
+                <option value="brand">brand</option>
+                <option value="model">model</option>
+                <option value="type">type</option>
+                <option value="fuel">fuel</option>
+                <option value="mileage">mileage</option>
+                <option value="price">price</option>
+            </select>
+            <input type="text" id="searchInput" name="userInput" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+        <form action="<%= `https://localhost:${PORT}/logout`%>" method="get">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+
+    <% cars.forEach(function(car) { %>
+        <div class="car-tile">
+            <h3>
+                <%= car.brand %> - <%= car.model %>
+            </h3>
+            <p>Type: <%= car.type %>
+            </p>
+            <p>Fuel: <%= car.fuel %>
+            </p>
+            <p>Mileage: <%= car.mileage %>
+            </p>
+            <p>Price: <%= car.price %>
+            </p>
+        </div>
+        <% }); %>
+
 </body>
+
 </html>
