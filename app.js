@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const https = require('https');
 const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
 const data = require('./dataModel');
 const { query } = require('express-validator');
 
