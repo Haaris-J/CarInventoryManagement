@@ -205,11 +205,30 @@ app.get('/add', (req, res) => {
         res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
     }
 });
+
+// Set up the storage for uploaded files
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      // Specify the directory where uploaded files will be stored
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      // Specify the filename for the uploaded file
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });
+  
+  // Create the multer middleware with the storage configuration
+  const upload = multer({ storage: storage });
+
 // Route to add a new car to the inventory (Admin only)
-app.post('/add-car', (req, res) => {
+app.post('/add-car',upload.single('file'), (req, res) => {
     const user = req.session.user;
     if (user && user.username === 'admin') {
         const { c_brand, c_model, c_type, c_fuel, c_mileage, c_price } = req.body;
+        const uploadedFile = req.file;
+        console.log(uploadedFile);
+        console.log(uploadedFile.filename);
 
         const car = new data({
             brand: `${c_brand}`,
@@ -217,7 +236,11 @@ app.post('/add-car', (req, res) => {
             type: `${c_type}`,
             fuel: `${c_fuel}`,
             mileage: `${c_mileage}`,
-            price: `${c_price}`
+            price: `${c_price}`,
+            img: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + uploadedFile.filename)),
+                contentType: 'image/png'
+            }
         });
 
         car.save()

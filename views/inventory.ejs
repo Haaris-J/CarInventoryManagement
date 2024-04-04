@@ -30,6 +30,9 @@
 
     <% cars.forEach(function(car) { %>
         <div class="car-tile">
+            <img src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>" width="100"
+                height="100" />
+
             <h3>
                 <%= car.brand %> - <%= car.model %>
             </h3>

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="<%= `https://localhost:${PORT}/update-car`%>" method="post">
+    <form action="<%= `https://localhost:${PORT}/update-car`%>" method="post" enctype="multipart/form-data">
         <label for="c_brand">Brand:</label>
         <select name="c_brand" id="c_brand">
             <option value="Toyota" <%=(car.brand==="Toyota" ? "selected" : "" )%>>Toyota</option>
@@ -37,6 +37,8 @@
         <br>
         <label>Mileage:</label> <input type="text" name="c_mileage" id="c_mileage" value="<%=`${car.mileage}`%>"><br>
         <label>Price:</label> <input type="text" name="c_price" id="c_price" value="<%=`${car.price}`%>"><br>
+        <label for="image">Upload Image</label>
+        <input type="file" id="image" name="image" value="<%=`${car.img}`%>" required />
         <button type="submit">Update</button>
     </form>
 </body>

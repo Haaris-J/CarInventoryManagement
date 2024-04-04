@@ -8,6 +8,11 @@ const dataSchema = new mongoose.Schema({
   fuel: String,
   mileage: String,
   price: String,
+  img:
+    {
+        data: Buffer,
+        contentType: String
+    }
 });
 
 const data = mongoose.model('data', dataSchema);
