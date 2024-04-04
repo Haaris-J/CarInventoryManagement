@@ -1,24 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Dealers</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
+
 <body>
-    <form action="<%= `https://localhost:${PORT}/login`%>" method="post">
-        <h2>Login</h2>
-        <input type="text" id="username" name="username" placeholder="Username" required>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <button class="login-button">Login</button>
-    </form>
-    <form action="<%= `https://localhost:${PORT}/register`%>" method="post">
-        <h2>Register</h2>
-        <label>User Name:</label> <input type="text" name="username" id="username"><br>
-        <label>Password:</label> <input type="password" name="password" id="password"><br>
-        <label>email:</label> <input type="email" name="email" id="email"><br>
-        <button type="submit">register</button>
-    </form>
+    <div class="header">
+        <h1 class="title">Welcome To The Car Store</h1>
+        <h3 class="subtitle">Explore Our Diverse Selection of Vehicles</h3>
+<p style="width: 500px; font-style: oblique; color:bisque; text-align: justify; margin-top: 100px">
+            Welcome to our car store, where excellence meets expertise! As the premier destination for automotive enthusiasts, we pride ourselves on being the best in the business. With an unparalleled selection of top-quality vehicles, unbeatable customer service, and a team of dedicated professionals, we're committed to exceeding your expectations at every turn. Whether you're in the market for a sleek new ride or a reliable pre-owned vehicle, our extensive inventory and personalized approach ensure that you'll find the perfect match. Trust us to deliver unparalleled quality, reliability, and satisfaction – because at our car store, your journey begins with excellence.
+        </p>
+    </div>
+  
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="signup">
+            <form action="<%= `https://localhost:${PORT}/register`%>" method="post">
+                <label for="chk" aria-hidden="true">Sign up</label>
+                <input type="text" name="username" id="username" placeholder="User name" required><br>
+                <input type="email" name="email" id="email" placeholder="Email"><br>
+                <input type="password" name="password" id="password" placeholder="Password"><br>
+                <button type="submit">register</button>
+            </form>
+        </div>
+        <div class="login">
+            <form action="<%= `https://localhost:${PORT}/login`%>" method="post">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button class="login-button">Login</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
 </body>
+
 </html>

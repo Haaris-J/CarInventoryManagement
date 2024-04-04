@@ -17,7 +17,7 @@ const app = express();
 // Port configuration
 const PORT = process.env.PORT || 3000;
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/carInventory', {
+mongoose.connect('mongodb://127.0.0.1:27017/carInventory', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
