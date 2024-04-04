@@ -12,11 +12,17 @@
     <div class="header">
         <h1 class="title">Welcome To The Car Store</h1>
         <h3 class="subtitle">Explore Our Diverse Selection of Vehicles</h3>
-<p style="width: 500px; font-style: oblique; color:bisque; text-align: justify; margin-top: 100px">
-            Welcome to our car store, where excellence meets expertise! As the premier destination for automotive enthusiasts, we pride ourselves on being the best in the business. With an unparalleled selection of top-quality vehicles, unbeatable customer service, and a team of dedicated professionals, we're committed to exceeding your expectations at every turn. Whether you're in the market for a sleek new ride or a reliable pre-owned vehicle, our extensive inventory and personalized approach ensure that you'll find the perfect match. Trust us to deliver unparalleled quality, reliability, and satisfaction – because at our car store, your journey begins with excellence.
+        <p style="width: 500px; font-style: oblique; color:bisque; text-align: justify; margin-top: 100px">
+            Welcome to our car store, where excellence meets expertise! As the premier destination for automotive
+            enthusiasts, we pride ourselves on being the best in the business. With an unparalleled selection of
+            top-quality vehicles, unbeatable customer service, and a team of dedicated professionals, we're committed to
+            exceeding your expectations at every turn. Whether you're in the market for a sleek new ride or a reliable
+            pre-owned vehicle, our extensive inventory and personalized approach ensure that you'll find the perfect
+            match. Trust us to deliver unparalleled quality, reliability, and satisfaction because at our car store,
+            your journey begins with excellence.
         </p>
     </div>
-  
+
     <div class="main">
         <input type="checkbox" id="chk" aria-hidden="true">
         <div class="signup">
@@ -37,34 +43,6 @@
             </form>
         </div>
     </div>
-    <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            let dots = document.getElementsByClassName("dot");
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
-    </script>
 
 </body>
 
