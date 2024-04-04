@@ -1,15 +1,22 @@
+<!-- HTML document for adding a new car -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Title of the page -->
     <title>Add Car</title>
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
+     <!-- Form for adding a new car, action attribute dynamically sets to the add-car route -->
     <form action="<%= `https://localhost:${PORT}/add-car`%>" method="post">
+         <!-- Input field for selecting the brand of the car -->
         <label>Brand:</label>
         <select name="c_brand" id="c_brand">
+             <!-- Options for different car brands -->
             <option value="Toyota">Toyota</option>
             <option value="Honda">Honda</option>
             <option value="Kia">Kia</option>
@@ -18,23 +25,31 @@
             <option value="Audi">Audi</option>
         </select>
         <br>
+        <!-- Input field for entering the model of the car -->
         <label>Model:</label> <input type="text" name="c_model" id="c_model"><br>
+         <!-- Input field for selecting the type of the car -->
         <label>Type:</label>
         <select name="c_type" id="c_type">
+            <!-- Options for different car types -->
             <option value="SUV">SUV</option>
             <option value="Sedan">Sedan</option>
             <option value="HatchBack">HatchBack</option>
         </select>
         <br>
+         <!-- Input field for selecting the fuel type of the car -->
         <label>Fuel:</label>
         <select name="c_fuel" id="c_fuel">
+             <!-- Options for different fuel types -->
             <option value="Gas">Gas</option>
             <option value="Hybrid">Hybrid</option>
             <option value="EV">EV</option>
         </select>
         <br>
+          <!-- Input field for entering the mileage of the car -->
         <label>Mileage:</label> <input type="text" name="c_mileage" id="c_mileage"><br>
+        <!-- Input field for entering the price of the car -->
         <label>Price:</label> <input type="text" name="c_price" id="c_price"><br>
+          <!-- Button to submit the form -->
         <button type="submit">Add</button>
     </form>
 </body>
