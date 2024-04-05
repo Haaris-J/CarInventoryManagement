@@ -42,7 +42,7 @@
 
 <div style="display: flex; flex-direction: row;">
     
-    <% cars.forEach(function(car) { %>
+    <% cars.forEach(function(car, index) { %>
         <div class="car-tile">
             <img src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>" style="width: 300px;  height: 190px;" />
             <h3>
@@ -63,6 +63,9 @@
                 <button>Delete</button>
             </form>
         </div>
+        <% if ((index + 1) % 4 === 0) { %>
+            <div style="width: 100%;"></div> <!-- Add an empty div to break to the next row -->
+        <% } %>
         <% }); %>
     </div>
 

@@ -40,7 +40,7 @@
 
     <div style="display: flex; flex-direction: row;">
 
-        <% cars.forEach(function(car) { %>
+        <% cars.forEach(function(car, index) { %>
             <div class="car-tile">
                 <img src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>"
                     style="width: 300px; height: 200px;" />
@@ -59,13 +59,16 @@
                 <p><b>Price: </b>
                     <%= car.price %>
                 </p>
-                <form action="<%= `https://localhost:${PORT}/edit-car/${car._id}`%>" method="post">
+                <!-- <form action="<%= `https://localhost:${PORT}/edit-car/${car._id}`%>" method="post">
                     <button>Edit</button>
                 </form>
                 <form action="<%= `https://localhost:${PORT}/delete-car/${car._id}`%>" method="post">
                     <button>Delete</button>
-                </form>
+                </form> -->
             </div>
+            <% if ((index + 1) % 4 === 0) { %>
+                <div style="width: 100%;"></div> <!-- Add an empty div to break to the next row -->
+            <% } %>
             <% }); %>
     </div>
 
