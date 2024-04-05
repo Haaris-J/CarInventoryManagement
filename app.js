@@ -161,25 +161,48 @@ app.get('/get-cars', (req, res) => {
 app.get('/search-cars?:filter', (req, res) => {
     const filter = req.query.filter;
     const userInput = req.query.userInput;
+    userInput=userInput.toLowerCase();
     console.log(`filter ${filter}`);
     console.log(`searchInput ${req.query.userInput}`);
     console.log(req.params);
     const user = req.session.user;
     if (user) {
-        data.find({
-            [`${filter}`]: `${userInput}`,
-        })
-            .then((cars) => {
-                console.log(cars);
-                if (cars === null) {
-                    cars = [];
-                }
-                if (user.username === 'admin') {
-                    res.render('manage', { 'cars': cars, PORT });
-                } else {
-                    res.render('inventory', { 'cars': cars, PORT });
-                }
+        // data.find({
+        //     [`${filter}`]: `${userInput}`,
+        // })
+        //     .then((cars) => {
+        //         console.log(cars);
+        //         if (cars === null) {
+        //             cars = [];
+        //         }
+        //         if (user.username === 'admin') {
+        //             res.render('manage', { 'cars': cars, PORT });
+        //         } else {
+        //             res.render('inventory', { 'cars': cars, PORT });
+        //         }
+        //     });
+        data.find({})
+        .then((cars) => {
+            let filteredCars = cars.filter(car => {
+                let value = car[filter].toLowerCase();
+                return value.includes(userInput);
             });
+            if (filter === 'price') {
+                filteredCars.sort((a, b) => a.price - b.price);
+            } else if (filter === 'mileage') {
+                filteredCars.sort((a, b) => b.mileage - a.mileage);
+            } else {
+                // For alphabetic sorting
+                filteredCars.sort((a, b) => {
+                    return a[filter].localeCompare(b[filter]);
+                });
+            }
+            if (user.username === 'admin') {
+                res.render('manage', { 'cars': filteredCars, PORT });
+            } else {
+                res.render('inventory', { 'cars': filteredCars, PORT });
+            }
+        });
     } else {
         res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
     }
