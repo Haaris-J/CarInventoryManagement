@@ -10,8 +10,11 @@
 
 <body>
     <div class="header">
+        <div class="leftHeader">
+            
         <div class="title">
                 Car Inventory Management            
+        </div>
             <div class="filters">
                 <form action="<%= `https://localhost:${PORT}/search-cars`%>" method="get">
                     <!-- <label for="filter">Choose filter:</label> -->
@@ -25,11 +28,12 @@
                     </select>
                     <input type="text" id="searchInput" class="search-bar" name="userInput" placeholder="Search...">
                     <!-- <button type="submit">Search</button> -->
-                    <form action="<%= `https://localhost:${PORT}/add`%>" method="get">
-                        <button class="addcar-btn">Add Car</button>
-                    </form>
+                </form>
+                <form action="<%= `https://localhost:${PORT}/add`%>" method="get">
+                    <button class="addcar-btn">Add Car</button>
                 </form>
             </div>
+   
         </div>
         <form action="<%= `https://localhost:${PORT}/logout`%>" method="get">
             <button class="logout-btn" type="submit">Log Out</button>
@@ -40,18 +44,17 @@
     
     <% cars.forEach(function(car) { %>
         <div class="car-tile">
-            <img src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>" width="100"
-                height="100" />
+            <img src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>" style="width: 300px;  height: 190px;" />
             <h3>
                 <%= car.brand %> - <%= car.model %>
             </h3>
-            <p>Type: <%= car.type %>
+            <p><b>Type: </b><%= car.type %>
             </p>
-            <p>Fuel: <%= car.fuel %>
+            <p><b>Fuel: </b><%= car.fuel %>
             </p>
-            <p>Mileage: <%= car.mileage %>
+            <p><b>Mileage: </b><%= car.mileage %>
             </p>
-            <p>Price: <%= car.price %>
+            <p><b>Price: </b><%= car.price %>
             </p>
             <form action="<%= `https://localhost:${PORT}/edit-car/${car._id}`%>" method="post">
                 <button>Edit</button>
@@ -62,12 +65,6 @@
         </div>
         <% }); %>
     </div>
-        <!-- <div class="car-tile">
-            <form action="<%= `https://localhost:${PORT}/add`%>" method="get">
-                <button>Add Car</button>
-            </form>
-        </div> -->
-   
 
 </body>
 
