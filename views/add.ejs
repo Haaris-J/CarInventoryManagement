@@ -9,7 +9,7 @@
   <!-- Title of the page -->
   <title>Add Car</title>
   <!-- Link to external CSS file -->
-  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="stylesheet" type="text/css" href="/css/add.css">
 </head>
 
 <body>
@@ -54,7 +54,11 @@
     <label for="image">Upload Image</label>
     <input type="file" id="file" name="file" value="" required />
     <!-- Button to submit the form -->
-    <button type="submit">Add</button>
+    <br>
+    <div class="buttonContainer">
+      <button class="addButton" type="submit">Add</button>
+      <a href="<%= `https://localhost:${PORT}/manage-cars`%>"><button class="cancelButton" type="button">Cancel</button></a>
+    </div>
   </form>
 </body>
 
