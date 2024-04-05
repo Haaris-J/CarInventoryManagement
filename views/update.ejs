@@ -39,7 +39,11 @@
         <label>Price:</label> <input type="text" name="c_price" id="c_price" value="<%=`${car.price}`%>"><br>
         <label for="image">Upload Image</label>
         <input type="file" id="image" name="image" value="<%=`${car.img}`%>" required />
-        <button type="submit">Update</button>
+        <br>
+        <div class="buttonContainer">
+            <button class="addButton" type="submit">Update</button>
+            <a href="<%= `https://localhost:${PORT}/get-cars`%>"><button class="cancelButton" type="button">Cancel</button></a>
+          </div>
     </form>
 </body>
 
