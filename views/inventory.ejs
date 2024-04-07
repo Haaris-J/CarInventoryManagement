@@ -59,12 +59,12 @@
                 <p><b>Price: </b>
                     <%= car.price %>
                 </p>
-                <!-- <form action="<%= `https://localhost:${PORT}/edit-car/${car._id}`%>" method="post">
+                <!-- <!-- <form action="<%= `https://localhost:${PORT}/edit-car/${car._id}`%>" method="post">
                     <button>Edit</button>
-                </form>
-                <form action="<%= `https://localhost:${PORT}/delete-car/${car._id}`%>" method="post">
-                    <button>Delete</button>
                 </form> -->
+                <form  action="<%= `https://localhost:${PORT}/buy-car/${car._id}`%>" method="post">
+                    <button>Buy</button>
+                </form> 
             </div>
             <% if ((index + 1) % 4 === 0) { %>
                 <div style="width: 100%;"></div> <!-- Add an empty div to break to the next row -->

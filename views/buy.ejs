@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Car</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .car-tile {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .car-tile:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            background-color: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-button:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="car-tile">
+        <img class="car-image" src="data:image/<%=car.img.contentType%>;base64,<%=car.img.data.toString('base64')%>"
+            alt="Car Image" />
+        <h3><%= car.brand %> - <%= car.model %></h3>
+        <p><b>Type:</b> <%= car.type %></p>
+        <p><b>Fuel:</b> <%= car.fuel %></p>
+        <p><b>Mileage:</b> <%= car.mileage %></p>
+        <p><b>Price:</b> <%= car.price %></p>
+
+        <form action="<%= `https://localhost:${PORT}/delete-car/${car._id}` %>" method="post">
+            <label for="cardNumber">Card Number:</label><br>
+            <input type="text" id="cardNumber" name="cardNumber" required><br>
+            <label for="expiry">Expiry Date:</label><br>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YYYY" required><br>
+            <label for="cvv">CVV:</label><br>
+            <input type="text" id="cvv" name="cvv" maxlength="3" required><br><br>
+            <button type="submit">Buy Now</button>
+            <a href="<%= `https://localhost:${PORT}/get-cars`%>" class="cancel-button">Cancel</a>
+        </form>
+    </div>
+
+    <script>
+        // You can add JavaScript functionality here if needed
+    </script>
+</body>
+
+</html>

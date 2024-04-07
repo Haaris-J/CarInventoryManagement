@@ -229,6 +229,7 @@ app.get('/add', (req, res) => {
     }
 });
 
+
 // Set up the storage for uploaded files
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -289,6 +290,22 @@ app.post('/edit-car/:id', (req, res) => {
             res.render('update', { 'car': car, PORT });
         });
 });
+// Route to buy a car 
+app.post('/buy-car/:id', (req, res) => {
+    const user = req.session.user;
+    console.log("Inside app.get buy car")
+    if (user && user.username !== "admin") {
+        console.log("Inside IF")
+        data.findOne({
+            _id: `${req.params.id}`
+        }) .then((car) => {
+            console.log(car);
+            res.render('buy', { 'car': car, PORT });
+        });
+    } else {
+        res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
+    }
+});
 // Route to update car details (Admin only)
 app.post('/update-car', (req, res) => {
     const user = req.session.user;
@@ -318,7 +335,7 @@ app.post('/update-car', (req, res) => {
 // Route to delete a car (Admin only)
 app.post('/delete-car/:id', (req, res) => {
     const user = req.session.user;
-    if (user && user.username === 'admin') {
+    if (user ) {
         console.log(req.params.id);
         data.deleteOne({
             _id: `${req.params.id}`
@@ -329,7 +346,11 @@ app.post('/delete-car/:id', (req, res) => {
             .catch((err) => {
                 console.error('Error deleting car data:', err);
             });
-        res.redirect('/manage-cars');
+        if(user.username == 'admin'){
+            res.redirect('/manage-cars');
+        }else{
+            res.redirect('/get-cars');
+        }
     } else {
         res.status(500).send(`<h1 style="color:red;">UnAuthorized! Admin only access, contact admin</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
     }
