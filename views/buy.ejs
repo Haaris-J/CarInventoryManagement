@@ -88,7 +88,7 @@
         <p><b>Mileage:</b> <%= car.mileage %></p>
         <p><b>Price:</b> <%= car.price %></p>
 
-        <form action="<%= `https://localhost:${PORT}/delete-car/${car._id}` %>" method="post">
+        <form action="<%= `https://localhost:${PORT}/buy/${car._id}` %>" method="post">
             <label for="cardNumber">Card Number:</label><br>
             <input type="text" id="cardNumber" name="cardNumber" required><br>
             <label for="expiry">Expiry Date:</label><br>

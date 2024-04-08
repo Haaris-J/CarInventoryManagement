@@ -261,6 +261,7 @@ app.post('/add-car',upload.single('file'), (req, res) => {
             fuel: `${c_fuel}`,
             mileage: `${c_mileage}`,
             price: `${c_price}`,
+            blocked: false,
             img: {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + uploadedFile.filename)),
                 contentType: 'image/png'
@@ -301,6 +302,42 @@ app.post('/buy-car/:id', (req, res) => {
         }) .then((car) => {
             console.log(car);
             res.render('buy', { 'car': car, PORT });
+        });
+    } else {
+        res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
+    }
+});
+
+app.post('/buy/:id', (req, res) => {
+    const user = req.session.user;
+    console.log("Inside app.post buy car")
+    if (user && user.username !== "admin") {
+        console.log("Inside IF")
+        data.findOne({
+            _id: req.params.id
+        })
+        .then((car) => {
+            console.log(car);
+            data.updateOne({
+                _id: req.params.id // Assuming your car documents have an _id field
+            }, {
+                $set: { blocked: true }
+            })
+            .then(() => {
+                console.log('car data updated successfully!');
+                res.redirect(`https://localhost:${PORT}/get-cars`);
+            })
+            .catch((err) => {
+                console.error('Error updating car data:', err);
+                res.redirect(`https://localhost:${PORT}/get-cars`);
+            });
+            // You shouldn't have any code after res.redirect or res.render because they send a response.
+            // Therefore, this line is removed:
+            // res.render('buy', { 'car': car, PORT });
+        })
+        .catch((err) => {
+            console.error('Error finding car:', err);
+            res.redirect(`https://localhost:${PORT}/get-cars`);
         });
     } else {
         res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);

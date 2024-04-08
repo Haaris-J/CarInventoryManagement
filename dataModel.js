@@ -8,6 +8,7 @@ const dataSchema = new mongoose.Schema({
   fuel: String,
   mileage: String,
   price: String,
+  blocked:Boolean,
   img:
     {
         data: Buffer,
