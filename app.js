@@ -151,7 +151,7 @@ app.get('/get-cars', (req, res) => {
     if (user) {
         data.find()
             .then((cars) => {
-                res.render('inventory', { 'cars': cars, PORT });
+                res.render('inventory', { 'cars': cars, PORT, user });
             });
     } else {
         res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
@@ -262,6 +262,7 @@ app.post('/add-car',upload.single('file'), (req, res) => {
             mileage: `${c_mileage}`,
             price: `${c_price}`,
             blocked: false,
+            blockedId: new mongoose.Types.ObjectId(),
             img: {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + uploadedFile.filename)),
                 contentType: 'image/png'
@@ -321,14 +322,50 @@ app.post('/buy/:id', (req, res) => {
             data.updateOne({
                 _id: req.params.id // Assuming your car documents have an _id field
             }, {
-                $set: { blocked: true }
+                $set: { blocked: true, blockedId: `${user._id}` }
             })
             .then(() => {
-                console.log('car data updated successfully!');
+                console.log('car bought successfully!');
                 res.redirect(`https://localhost:${PORT}/get-cars`);
             })
             .catch((err) => {
-                console.error('Error updating car data:', err);
+                console.error('Error buying car:', err);
+                res.redirect(`https://localhost:${PORT}/get-cars`);
+            });
+            // You shouldn't have any code after res.redirect or res.render because they send a response.
+            // Therefore, this line is removed:
+            // res.render('buy', { 'car': car, PORT });
+        })
+        .catch((err) => {
+            console.error('Error finding car:', err);
+            res.redirect(`https://localhost:${PORT}/get-cars`);
+        });
+    } else {
+        res.status(500).send(`<h1 style="color:red;">Session Expired!</h1><br><a href="https://localhost:${PORT}/">Return to website</a>`);
+    }
+});
+
+app.post('/cancel/:id', (req, res) => {
+    const user = req.session.user;
+    console.log("Inside app.post buy car")
+    if (user && user.username !== "admin") {
+        console.log("Inside IF")
+        data.findOne({
+            _id: req.params.id
+        })
+        .then((car) => {
+            console.log(car);
+            data.updateOne({
+                _id: req.params.id // Assuming your car documents have an _id field
+            }, {
+                $set: { blocked: false, blockedId: new mongoose.Types.ObjectId() }
+            })
+            .then(() => {
+                console.log('car cancelled successfully!');
+                res.redirect(`https://localhost:${PORT}/get-cars`);
+            })
+            .catch((err) => {
+                console.error('Error cancelling car:', err);
                 res.redirect(`https://localhost:${PORT}/get-cars`);
             });
             // You shouldn't have any code after res.redirect or res.render because they send a response.

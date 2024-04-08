@@ -59,13 +59,20 @@
                     <%= car.price %>
                 </p>
                 <% if (!car.blocked) { %>
-                    <form  action="<%= `https://localhost:${PORT}/buy-car/${car._id}`%>" method="post">
+                    <form action="<%= `https://localhost:${PORT}/buy-car/${car._id}` %>" method="post">
                         <button>Buy</button>
                     </form>
+                <% } else if (user._id.toString() === car.blockedId.toString()) { %>
+                    <form action="<%= `https://localhost:${PORT}/cancel/${car._id}` %>" method="post">
+                        <button>Cancel</button>
+                    </form>
+                <% } else { %>
+                    <p>Blocked</p>
                 <% } %>
+                
             </div>
             <% if ((index + 1) % 4 === 0) { %>
-                <div style="width: 100%;"></div> <!-- Add an empty div to break to the next row -->
+                <div style="width: 100%;"></div> 
             <% } %>
         <% }); %>
     </div>
