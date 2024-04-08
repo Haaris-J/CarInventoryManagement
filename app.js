@@ -160,7 +160,7 @@ app.get('/get-cars', (req, res) => {
 // Route to search for cars
 app.get('/search-cars?:filter', (req, res) => {
     const filter = req.query.filter;
-    const userInput = req.query.userInput;
+    var userInput = req.query.userInput;
     userInput=userInput.toLowerCase();
     console.log(`filter ${filter}`);
     console.log(`searchInput ${req.query.userInput}`);
